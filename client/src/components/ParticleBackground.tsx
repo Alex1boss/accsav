@@ -57,23 +57,23 @@ export default function ParticleBackground() {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
         
-        // Draw particle with electric blue glow
+        // Draw particle with neon purple glow
         ctx.save();
         ctx.globalAlpha = particle.opacity;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = '#22d3ee'; // Neon cyan
+        ctx.fillStyle = '#a855f7'; // Neon purple
         ctx.fill();
         
         // Add glow effect
-        ctx.shadowColor = '#22d3ee';
+        ctx.shadowColor = '#a855f7';
         ctx.shadowBlur = 10;
         ctx.fill();
         ctx.restore();
       });
       
       // Draw connections between nearby particles
-      ctx.strokeStyle = 'rgba(34, 211, 238, 0.1)';
+      ctx.strokeStyle = 'rgba(168, 85, 247, 0.1)';
       ctx.lineWidth = 1;
       
       for (let i = 0; i < particlesRef.current.length; i++) {
