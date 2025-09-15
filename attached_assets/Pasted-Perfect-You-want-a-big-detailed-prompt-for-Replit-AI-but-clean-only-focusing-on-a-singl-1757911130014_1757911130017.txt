@@ -1,0 +1,113 @@
+Perfect 👌 You want a **big, detailed prompt** for Replit AI — but clean, only focusing on a **single Coming Soon page** (no extra pages like Privacy Policy). This will give you a futuristic, educational vibe for **theinnovisionary.world**.
+
+Here’s your ready-to-use **super prompt**:
+
+---
+
+# 📝 Replit AI Prompt: Coming Soon Website for *The Innovisionary World*
+
+**Task:**
+Build a **single-page Coming Soon website** for **The Innovisionary World (theinnovisionary.world)**. The design must feel **futuristic, inspiring, and educational**, appealing to teens (13–20), parents, and investors. Use **HTML + Tailwind CSS + JavaScript** (or React with Tailwind if better). No other pages, no Privacy Policy, no extra clutter — just one powerful page.
+
+---
+
+## 🔑 Design Goals:
+
+1. **Educational + Futuristic Vibes** → The website should feel like the start of a new global movement, not just another edtech site.
+2. **Clean + Minimal** → Simple but powerful. Focus on *big text, bold visuals, glowing accents*.
+3. **Emotional Hook** → Make visitors curious and inspired to join the waitlist.
+
+---
+
+## 🎨 Style Guide
+
+* **Color Palette:**
+
+  * Deep Space Blue (#0f172a)
+  * Futuristic Purple Gradient (#7c3aed → #9333ea)
+  * Neon Green Accent (#22d3ee)
+  * White for contrast (#ffffff)
+
+* **Fonts:**
+
+  * Title/Headings: *Montserrat ExtraBold* (futuristic, bold)
+  * Body: *Poppins* or *Inter* (clean, modern, readable)
+
+* **Effects:**
+
+  * Subtle animated gradient background or particle/globe effect.
+  * Hover glow on buttons and social icons.
+  * Smooth fade-in animations for text.
+
+---
+
+## 📐 Page Structure
+
+### 1. **Hero Section (Full Screen)**
+
+* **Logo/Name at top center:** *The Innovisionary World* (glowing text effect).
+* **Main Tagline (Large, Bold):**
+  *“A New Era of Learning for Ages 13–20”*
+* **Subheading (Medium, Lighter):**
+  *“Not a school. Not a university. A movement. Unlock your potential, master real-world skills, and build the future with us.”*
+* **Coming Soon Text:** Animated “COMING SOON” glowing.
+* **Countdown Timer:** Placeholder countdown (00 Days : 00 Hrs : 00 Min : 00 Sec).
+
+---
+
+### 2. **Waitlist Signup (Center)**
+
+* Short text: *“Be among the first Innovisionaries. Join the waitlist today.”*
+* **Form:** Input for Name + Email.
+* **CTA Button:** “Notify Me” (with glowing hover effect).
+* Validation for email input. (Store in placeholder/local storage).
+
+---
+
+### 3. **About Section (Short & Inspiring)**
+
+* Header: *“Why The Innovisionary World?”*
+* Short paragraph (2–3 sentences):
+  *“We are reimagining education for the 21st century. A global space where teenagers don’t just study — they innovate, collaborate, and build real-world impact. Launching soon, both online and offline.”*
+
+---
+
+### 4. **Social Media Section (Bottom)**
+
+* Icons: LinkedIn, Twitter (X), Instagram, YouTube.
+* Glow animation on hover.
+* Text: *“Follow our journey. Be part of the first wave.”*
+
+---
+
+### 5. **Footer (Very Minimal)**
+
+* Centered small text:
+  *© 2025 The Innovisionary World. All rights reserved.*
+
+---
+
+## ⚙️ Functionality Requirements
+
+* Fully **mobile responsive**.
+* Signup form: Validate email. Store in placeholder/local storage (mock database).
+* Smooth scroll animations.
+* Countdown timer: auto-running with JS.
+* Background effect: choice of **animated gradient**, **rotating globe**, or **particle network**.
+
+---
+
+## 📦 Deliverable
+
+A **single index.html file** (with Tailwind + JS) OR a React + Tailwind setup that:
+
+* Shows one powerful **Coming Soon page**.
+* Has working email signup (mock).
+* Feels futuristic and inspiring.
+* Deployable instantly on **theinnovisionary.world**.
+
+---
+
+⚡ Atul, this is the kind of **“big prompt”** that Replit AI can understand in detail and give you a near-finished site.
+
+Do you want me to also **write the exact copy for the About + Hero section** (so it looks professional from Day 1), or should I leave placeholders for you to edit later?
