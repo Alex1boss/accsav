@@ -14,9 +14,9 @@
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
 
-  --background: 0 0% 98%;
+  --background: 0 0% 99%;
 
-  --foreground: 220 50% 20%;
+  --foreground: 222 47% 11%;
 
   --border: 220 13% 85%;
 
@@ -48,7 +48,7 @@
 
   --popover-border: 220 13% 86%;
 
-  --primary: 210 80% 50%;
+  --primary: 32 95% 65%;
 
   --primary-foreground: 0 0% 98%;
 
@@ -70,9 +70,9 @@
 
   --input: 220 25% 70%;
   --ring: 210 80% 50%;
-  --chart-1: 210 80% 50%;
-  --chart-2: 270 60% 50%;
-  --chart-3: 300 70% 55%;
+  --chart-1: 4 90% 58%;
+  --chart-2: 213 93% 68%;
+  --chart-3: 174 84% 40%;
   --chart-4: 180 60% 45%;
   --chart-5: 45 80% 55%;
 

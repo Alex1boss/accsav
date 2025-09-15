@@ -1,3 +1,5 @@
+import logoImage from '@assets/theinnovisionary logo_1757912355012.jpg';
+
 export default function HeroSection() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative z-10">
@@ -5,7 +7,7 @@ export default function HeroSection() {
       <div className="mb-8 flex flex-col items-center">
         <div className="mb-6">
           <img 
-            src="/attached_assets/theinnovisionary logo_1757912355012.jpg"
+            src={logoImage}
             alt="The Innovisionary World Logo"
             className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-contain filter drop-shadow-lg"
             style={{ 
