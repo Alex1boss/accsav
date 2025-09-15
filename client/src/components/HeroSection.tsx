@@ -1,21 +1,24 @@
-import logoImage from '@assets/theinnovisionary logo_1757912355012.jpg';
+import logoImage from '@assets/theinnovisionary_logo-removebg-preview (1)_1757912910507.png';
 
 export default function HeroSection() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative z-10">
-      {/* Logo/Title */}
-      <div className="mb-8 flex flex-col items-center">
-        <div className="mb-6">
-          <img 
-            src={logoImage}
-            alt="The Innovisionary World Logo"
-            className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-contain filter drop-shadow-lg"
-            style={{ 
-              filter: 'drop-shadow(0 0 15px rgba(245, 158, 11, 0.3))'
-            }}
-            data-testid="img-logo"
-          />
-        </div>
+      {/* Logo in top-left corner */}
+      <div className="fixed top-4 left-4 z-50">
+        <img 
+          src={logoImage}
+          alt="The Innovisionary World Logo"
+          className="w-12 h-12 md:w-16 md:h-16 object-contain filter drop-shadow-lg hover-elevate cursor-pointer"
+          style={{ 
+            filter: 'drop-shadow(0 0 10px rgba(245, 158, 11, 0.4))'
+          }}
+          data-testid="img-logo"
+          onClick={() => console.log('Logo clicked')}
+        />
+      </div>
+      
+      {/* Title */}
+      <div className="mb-8">
         <h1 
           className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-gradient-to-br from-primary via-chart-1 to-chart-2 bg-clip-text text-transparent"
           style={{ fontFamily: 'Montserrat, sans-serif' }}
