@@ -99,9 +99,9 @@ export default function WaitlistForm() {
         <Button 
           type="submit" 
           disabled={isSubmitting}
-          className="w-full bg-gradient-to-r from-primary to-chart-2 hover:from-primary/90 hover:to-chart-2/90 text-primary-foreground font-semibold py-3 text-lg transition-all duration-300"
+          className="w-full bg-gradient-to-r from-primary via-chart-1 to-chart-2 hover:from-primary/90 hover:via-chart-1/90 hover:to-chart-2/90 text-white font-semibold py-3 text-lg transition-all duration-300"
           style={{ 
-            boxShadow: isSubmitting ? 'none' : '0 0 20px rgba(34, 211, 238, 0.3)',
+            boxShadow: isSubmitting ? 'none' : '0 0 20px rgba(245, 158, 11, 0.4)',
             fontFamily: 'Montserrat, sans-serif'
           }}
           data-testid="button-notify-me"

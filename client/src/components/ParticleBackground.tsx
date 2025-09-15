@@ -57,23 +57,27 @@ export default function ParticleBackground() {
         if (particle.y < 0) particle.y = canvas.height;
         if (particle.y > canvas.height) particle.y = 0;
         
-        // Draw particle with neon purple glow
+        // Draw particle with warm orange glow (matching logo)
         ctx.save();
         ctx.globalAlpha = particle.opacity;
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-        ctx.fillStyle = '#a855f7'; // Neon purple
+        
+        // Use colors from logo - alternate between orange and blue
+        const colors = ['#f59e0b', '#3b82f6', '#ef4444', '#059669'];
+        const colorIndex = Math.floor((particle.x + particle.y) / 100) % colors.length;
+        ctx.fillStyle = colors[colorIndex];
         ctx.fill();
         
         // Add glow effect
-        ctx.shadowColor = '#a855f7';
-        ctx.shadowBlur = 10;
+        ctx.shadowColor = colors[colorIndex];
+        ctx.shadowBlur = 8;
         ctx.fill();
         ctx.restore();
       });
       
-      // Draw connections between nearby particles
-      ctx.strokeStyle = 'rgba(168, 85, 247, 0.1)';
+      // Draw connections between nearby particles with logo colors
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.15)'; // Orange from logo
       ctx.lineWidth = 1;
       
       for (let i = 0; i < particlesRef.current.length; i++) {

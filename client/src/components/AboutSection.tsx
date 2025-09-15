@@ -10,7 +10,18 @@ export default function AboutSection() {
           Why The Innovisionary World?
         </h3>
         
-        <div className="bg-card/30 backdrop-blur-md border border-primary/20 rounded-lg p-8 md:p-12 hover-elevate">
+        <div className="bg-card/30 backdrop-blur-md border border-primary/20 rounded-lg p-8 md:p-12 hover-elevate relative overflow-hidden"
+          style={{ 
+            boxShadow: '0 0 20px rgba(245, 158, 11, 0.1)' 
+          }}
+        >
+          {/* Geometric background elements inspired by logo */}
+          <div className="absolute top-0 right-0 w-32 h-32 opacity-10">
+            <div className="w-full h-full bg-gradient-to-br from-primary via-chart-1 to-chart-2 transform rotate-45 rounded-lg"></div>
+          </div>
+          <div className="absolute bottom-0 left-0 w-24 h-24 opacity-10">
+            <div className="w-full h-full bg-gradient-to-tr from-chart-2 via-chart-3 to-primary transform -rotate-12 rounded-full"></div>
+          </div>
           <p 
             className="text-lg md:text-xl text-foreground leading-relaxed mb-6"
             style={{ fontFamily: 'Poppins, sans-serif' }}

@@ -2,9 +2,20 @@ export default function HeroSection() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative z-10">
       {/* Logo/Title */}
-      <div className="mb-8">
+      <div className="mb-8 flex flex-col items-center">
+        <div className="mb-6">
+          <img 
+            src="/attached_assets/theinnovisionary logo_1757912355012.jpg"
+            alt="The Innovisionary World Logo"
+            className="w-24 h-24 md:w-32 md:h-32 lg:w-40 lg:h-40 object-contain filter drop-shadow-lg"
+            style={{ 
+              filter: 'drop-shadow(0 0 15px rgba(245, 158, 11, 0.3))'
+            }}
+            data-testid="img-logo"
+          />
+        </div>
         <h1 
-          className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-gradient-to-r from-primary to-chart-2 bg-clip-text text-transparent"
+          className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4 bg-gradient-to-br from-primary via-chart-1 to-chart-2 bg-clip-text text-transparent"
           style={{ fontFamily: 'Montserrat, sans-serif' }}
           data-testid="text-logo"
         >
@@ -36,8 +47,12 @@ export default function HeroSection() {
           className="text-3xl md:text-4xl lg:text-5xl font-black mb-6 animate-pulse"
           style={{ 
             fontFamily: 'Montserrat, sans-serif',
-            textShadow: '0 0 20px rgba(168, 85, 247, 0.5)',
-            color: '#a855f7'
+            textShadow: '0 0 25px rgba(245, 158, 11, 0.6)',
+            color: '#f59e0b',
+            background: 'linear-gradient(135deg, #f59e0b, #ef4444)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
           }}
           data-testid="text-coming-soon"
         >
