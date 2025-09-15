@@ -2,7 +2,7 @@ import logoImage from '@assets/theinnovisionary_logo-removebg-preview (1)_175791
 
 export default function HeroSection() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 relative z-10">
+    <div className="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20 md:pt-24 relative z-10">
       {/* Logo in top-left corner */}
       <div className="fixed top-4 left-4 z-50">
         <img 
