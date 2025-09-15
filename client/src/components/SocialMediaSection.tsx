@@ -5,33 +5,32 @@ const socialLinks = [
   { 
     name: 'LinkedIn', 
     icon: Linkedin, 
-    url: '#', 
+    url: 'https://www.linkedin.com/company/the-innovision-org/?lipi=urn%3Ali%3Apage%3Ad_flagship3_search_srp_all%3BG3NV%2B11WR8aYlK%2Fys6cAsw%3D%3D', 
     color: 'hover:text-blue-400' 
   },
   { 
     name: 'Twitter', 
     icon: Twitter, 
-    url: '#', 
+    url: 'https://x.com/InnoVisionaryW', 
     color: 'hover:text-sky-400' 
   },
   { 
     name: 'Instagram', 
     icon: Instagram, 
-    url: '#', 
+    url: 'https://www.instagram.com/innovisionaryw/', 
     color: 'hover:text-pink-400' 
   },
   { 
     name: 'YouTube', 
     icon: Youtube, 
-    url: '#', 
+    url: 'https://www.youtube.com/@TheInnovisionaryWorld', 
     color: 'hover:text-red-400' 
   },
 ];
 
 export default function SocialMediaSection() {
-  const handleSocialClick = (platform: string) => {
-    console.log(`Clicked ${platform} social link`);
-    // TODO: Replace with actual social media URLs
+  const handleSocialClick = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -53,7 +52,7 @@ export default function SocialMediaSection() {
                 key={social.name}
                 variant="ghost"
                 size="icon"
-                onClick={() => handleSocialClick(social.name)}
+                onClick={() => handleSocialClick(social.url)}
                 className={`w-12 h-12 rounded-full bg-card/30 backdrop-blur-sm border border-primary/20 hover:border-primary/40 hover-elevate transition-all duration-300 ${social.color}`}
                 style={{ 
                   boxShadow: '0 0 10px rgba(245, 158, 11, 0.2)'
