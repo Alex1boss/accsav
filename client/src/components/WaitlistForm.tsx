@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
+import { useMutation } from '@tanstack/react-query';
+import { apiRequest } from '@/lib/queryClient';
 
 interface FormData {
   name: string;
@@ -10,8 +12,32 @@ interface FormData {
 
 export default function WaitlistForm() {
   const [formData, setFormData] = useState<FormData>({ name: '', email: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
+
+  const waitlistMutation = useMutation({
+    mutationFn: async (data: FormData) => {
+      const response = await apiRequest('POST', '/api/waitlist', data);
+      return await response.json();
+    },
+    onSuccess: (response) => {
+      toast({
+        title: "Welcome to the Movement! 🚀",
+        description: "You're now on the waitlist. We'll notify you when we launch!",
+        variant: "default"
+      });
+      setFormData({ name: '', email: '' });
+    },
+    onError: (error: any) => {
+      const errorMessage = error?.message || "Please try again in a moment.";
+      toast({
+        title: errorMessage?.includes("already on the waitlist") 
+          ? "Already Registered!" 
+          : "Something went wrong",
+        description: errorMessage,
+        variant: "destructive"
+      });
+    }
+  });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,35 +60,7 @@ export default function WaitlistForm() {
       return;
     }
 
-    setIsSubmitting(true);
-    
-    // Mock API call - store in localStorage for demo
-    try {
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API delay
-      
-      const existingEmails = JSON.parse(localStorage.getItem('waitlist') || '[]');
-      if (!existingEmails.some((entry: FormData) => entry.email === formData.email)) {
-        existingEmails.push({ ...formData, joinedAt: new Date().toISOString() });
-        localStorage.setItem('waitlist', JSON.stringify(existingEmails));
-      }
-      
-      toast({
-        title: "Welcome to the Movement! 🚀",
-        description: "You're now on the waitlist. We'll notify you when we launch!",
-        variant: "default"
-      });
-      
-      setFormData({ name: '', email: '' });
-      console.log('Waitlist signup successful:', formData);
-    } catch (error) {
-      toast({
-        title: "Something went wrong",
-        description: "Please try again in a moment.",
-        variant: "destructive"
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+    waitlistMutation.mutate(formData);
   };
 
   return (
@@ -98,15 +96,15 @@ export default function WaitlistForm() {
         
         <Button 
           type="submit" 
-          disabled={isSubmitting}
+          disabled={waitlistMutation.isPending}
           className="w-full bg-gradient-to-r from-primary via-chart-1 to-chart-2 hover:from-primary/90 hover:via-chart-1/90 hover:to-chart-2/90 text-white font-semibold py-3 text-lg transition-all duration-300"
           style={{ 
-            boxShadow: isSubmitting ? 'none' : '0 0 20px rgba(245, 158, 11, 0.4)',
+            boxShadow: waitlistMutation.isPending ? 'none' : '0 0 20px rgba(245, 158, 11, 0.4)',
             fontFamily: 'Montserrat, sans-serif'
           }}
           data-testid="button-notify-me"
         >
-          {isSubmitting ? 'Joining...' : 'Notify Me'}
+          {waitlistMutation.isPending ? 'Joining...' : 'Notify Me'}
         </Button>
       </form>
     </div>
