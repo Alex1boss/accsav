@@ -43,7 +43,7 @@ export default function HeroSection() {
         style={{ fontFamily: 'Poppins, sans-serif' }}
         data-testid="text-subheading"
       >
-        Not a school. Not a university. A movement. Unlock your potential, master real-world skills, and build the future with us.
+        A world where your vision sparks innovation.
       </p>
 
       {/* Coming Soon */}
