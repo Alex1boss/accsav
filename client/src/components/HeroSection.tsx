@@ -34,7 +34,7 @@ export default function HeroSection() {
         style={{ fontFamily: 'Montserrat, sans-serif' }}
         data-testid="text-tagline"
       >
-        A New Era of Learning for Ages 13–20
+        A New Era of Learning for Ages 13-25
       </h2>
 
       {/* Subheading */}
