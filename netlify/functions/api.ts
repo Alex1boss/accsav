@@ -1,51 +1,11 @@
 import express, { type Request, Response, NextFunction } from "express";
 import serverless from "serverless-http";
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
-import * as schema from "../../shared/schema";
+import { neon } from "@netlify/neon";
 import { insertWaitlistSchema } from "../../shared/schema";
 import { fromZodError } from "zod-validation-error";
 
-// Configure Neon for serverless
-neonConfig.webSocketConstructor = ws;
-neonConfig.pipelineConnect = false;
-
-// Use Netlify environment variable
-const databaseUrl = process.env.NETLIFY_DATABASE_URL || process.env.DATABASE_URL;
-
-if (!databaseUrl) {
-  throw new Error(
-    "NETLIFY_DATABASE_URL or DATABASE_URL must be set. Did you forget to provision a database?",
-  );
-}
-
-const pool = new Pool({ connectionString: databaseUrl });
-const db = drizzle({ client: pool, schema });
-
-// Storage interface for Netlify function
-const netlifyStorage = {
-  async createWaitlistEntry(data: { name: string; email: string }) {
-    const [entry] = await db.insert(schema.waitlist).values(data).returning();
-    return entry;
-  },
-  
-  async getWaitlistByEmail(email: string) {
-    const [entry] = await db.select().from(schema.waitlist).where(eq(schema.waitlist.email, email));
-    return entry;
-  },
-  
-  async getWaitlistCount() {
-    const [result] = await db.select({ count: count() }).from(schema.waitlist);
-    return result.count;
-  },
-  
-  async getAllWaitlistEntries() {
-    return await db.select().from(schema.waitlist).orderBy(desc(schema.waitlist.joinedAt));
-  }
-};
-
-import { eq, count, desc } from 'drizzle-orm';
+// Initialize Neon database connection (automatically uses NETLIFY_DATABASE_URL)
+const sql = neon();
 
 const app = express();
 app.use(express.json());
@@ -86,15 +46,20 @@ app.post("/api/waitlist", async (req, res) => {
     const validatedData = insertWaitlistSchema.parse(req.body);
     
     // Check if email already exists
-    const existingEntry = await netlifyStorage.getWaitlistByEmail(validatedData.email);
-    if (existingEntry) {
+    const existingEntry = await sql`SELECT * FROM waitlist WHERE email = ${validatedData.email}`;
+    if (existingEntry.length > 0) {
       return res.status(409).json({ 
         message: "This email is already on the waitlist!" 
       });
     }
     
     try {
-      const newEntry = await netlifyStorage.createWaitlistEntry(validatedData);
+      const [newEntry] = await sql`
+        INSERT INTO waitlist (name, email) 
+        VALUES (${validatedData.name}, ${validatedData.email}) 
+        RETURNING id, name, email
+      `;
+      
       res.status(201).json({ 
         message: "Successfully joined the waitlist!",
         data: { id: newEntry.id, name: newEntry.name, email: newEntry.email }
@@ -125,8 +90,8 @@ app.post("/api/waitlist", async (req, res) => {
 
 app.get("/api/waitlist/count", async (req, res) => {
   try {
-    const count = await netlifyStorage.getWaitlistCount();
-    res.json({ count });
+    const [result] = await sql`SELECT COUNT(*) as count FROM waitlist`;
+    res.json({ count: parseInt(result.count) });
   } catch (error) {
     console.error("Error getting waitlist count:", error);
     res.status(500).json({ 
@@ -137,7 +102,7 @@ app.get("/api/waitlist/count", async (req, res) => {
 
 app.get("/api/waitlist", async (req, res) => {
   try {
-    const entries = await netlifyStorage.getAllWaitlistEntries();
+    const entries = await sql`SELECT * FROM waitlist ORDER BY joined_at DESC`;
     res.json({ entries, count: entries.length });
   } catch (error) {
     console.error("Error getting waitlist entries:", error);
