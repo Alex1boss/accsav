@@ -1,6 +1,8 @@
 import express, { type Request, Response, NextFunction } from "express";
 import serverless from "serverless-http";
 import { storage } from "../../server/storage";
+import { insertWaitlistSchema } from "../../shared/schema";
+import { fromZodError } from "zod-validation-error";
 
 const app = express();
 app.use(express.json());
@@ -35,19 +37,72 @@ app.use((req, res, next) => {
   next();
 });
 
-// API Routes will go here
-// Example route:
-// app.get('/api/users/:id', async (req, res) => {
-//   try {
-//     const user = await storage.getUser(req.params.id);
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-//     res.json(user);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Internal server error' });
-//   }
-// });
+// Waitlist endpoints
+app.post("/api/waitlist", async (req, res) => {
+  try {
+    const validatedData = insertWaitlistSchema.parse(req.body);
+    
+    // Check if email already exists
+    const existingEntry = await storage.getWaitlistByEmail(validatedData.email);
+    if (existingEntry) {
+      return res.status(409).json({ 
+        message: "This email is already on the waitlist!" 
+      });
+    }
+    
+    try {
+      const newEntry = await storage.createWaitlistEntry(validatedData);
+      res.status(201).json({ 
+        message: "Successfully joined the waitlist!",
+        data: { id: newEntry.id, name: newEntry.name, email: newEntry.email }
+      });
+    } catch (dbError: any) {
+      // Handle unique constraint violation (email already exists)
+      if (dbError.code === '23505' || dbError.message?.includes('unique constraint')) {
+        return res.status(409).json({ 
+          message: "This email is already on the waitlist!" 
+        });
+      }
+      throw dbError;
+    }
+  } catch (error: any) {
+    if (error.name === "ZodError") {
+      const validationError = fromZodError(error);
+      return res.status(400).json({ 
+        message: validationError.message 
+      });
+    }
+    
+    console.error("Waitlist signup error:", error);
+    res.status(500).json({ 
+      message: "An error occurred while joining the waitlist" 
+    });
+  }
+});
+
+app.get("/api/waitlist/count", async (req, res) => {
+  try {
+    const count = await storage.getWaitlistCount();
+    res.json({ count });
+  } catch (error) {
+    console.error("Error getting waitlist count:", error);
+    res.status(500).json({ 
+      message: "An error occurred while getting the waitlist count" 
+    });
+  }
+});
+
+app.get("/api/waitlist", async (req, res) => {
+  try {
+    const entries = await storage.getAllWaitlistEntries();
+    res.json({ entries, count: entries.length });
+  } catch (error) {
+    console.error("Error getting waitlist entries:", error);
+    res.status(500).json({ 
+      message: "An error occurred while getting the waitlist entries" 
+    });
+  }
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
