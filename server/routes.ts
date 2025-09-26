@@ -63,6 +63,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/waitlist", async (req, res) => {
+    try {
+      const entries = await storage.getAllWaitlistEntries();
+      res.json({ entries, count: entries.length });
+    } catch (error) {
+      console.error("Error getting waitlist entries:", error);
+      res.status(500).json({ 
+        message: "An error occurred while getting the waitlist entries" 
+      });
+    }
+  });
+
   // use storage to perform CRUD operations on the storage interface
   // e.g. storage.insertUser(user) or storage.getUserByUsername(username)
 
